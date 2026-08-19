@@ -1,0 +1,30 @@
+# Never commit real financial data or credentials.
+*.csv
+*.xlsx
+*.xls
+*.parquet
+*.db
+*.sqlite
+.env
+.env.*
+credentials.json
+service-account*.json
+*-key.json
+application_default_credentials.json
+
+# Close run outputs are working state, not source
+close-runs/
+tieout-runs/
+artifacts/out/
+*.local.md
+
+# Tooling
+__pycache__/
+*.pyc
+.venv/
+node_modules/
+.DS_Store
+Thumbs.db
+
+# Allow the fixtures that are deliberately synthetic
+!skills/**/fixtures/*.csv

@@ -1,0 +1,129 @@
+# Finance automation — project instructions
+
+> Drop-in template. Copy into your finance working folder as `CLAUDE.md` and fill the bracketed
+> sections. This makes the closeloop rails **standing instructions** rather than skills you have to
+> remember to invoke.
+>
+> Delete this blockquote once you have filled it in.
+
+## What this project is
+
+[One paragraph: what finance work happens in this folder, for which entity, and who relies on it.]
+
+Skills: this project uses the [closeloop](https://github.com/Lukehle/closeloop) pack. Route by the
+skill descriptions; `finance-guardrails` and `tie-out` govern everything.
+
+---
+
+## Standing rails — these are not optional
+
+**1. Automate up to the button. A human presses it.**
+Nothing here posts a journal entry, locks a period, transmits a payment, sends a board pack,
+publishes figures, or deploys. Prepare it fully, stage it with the exact action + tie-out evidence +
+blast radius + rollback, write `STAGED — human runs this`, and stop.
+
+**2. No number leaves unproven.**
+Every reported figure ships a `tie-out` block: source → transformation → control total → agreement,
+with the threshold stated *before* the result. PASS, FAIL, or UNVERIFIED — nothing else. "The query
+ran" is not "the number is right."
+
+**3. One writer per zone.**
+See `ZONES.md`. Never write a zone owned by a human or by another automation. Never write an
+undeclared zone.
+
+**4. As-of everything.**
+Every figure carries the data timestamp, the period, and whether that period is open or closed. An
+extract from an open period is provisional and must be re-run after close.
+
+**5. Nothing from the deny list, ever.**
+No bank/card numbers, tax IDs, individual compensation, customer-identifying detail below the
+aggregation threshold (5+ entities, none over 50%), or credentials — not in files, commits,
+artifacts, or published pages. Credentials come from the environment or ADC.
+
+**6. Say what you did not do.**
+Every deliverable states what was not checked and why, what is staged, and what is unverified. A
+partial run reported as complete is worse than a failed one.
+
+---
+
+## Stack
+
+| Layer | System | Notes |
+|---|---|---|
+| ERP / system of record | NetSuite | Subsidiary [ ], primary book. Period = `postingperiod`, never `trandate` |
+| Warehouse | [BigQuery / Snowflake] | Project/DB: [ ]. Finance datasets: [ ] |
+| Spreadsheets | Google Sheets, Excel | Zone map in `ZONES.md` |
+| Docs | Notion | Zone markers required; see `notion-publish` |
+| Language | Python | Aggregate at source; never load a large extract into context |
+
+**When NetSuite and the warehouse disagree, NetSuite is right until proven otherwise** and the
+pipeline is the first suspect.
+
+---
+
+## Materiality — the standing thresholds
+
+```
+Investigate:        greater of $[  ] or [  ]% of the account balance
+Investigation floor: $[  ]  (below this: aggregate and note, do not itemize)
+Zero tolerance:      cash, intercompany, payroll clearing, suspense
+Flux gate:           variance > greater of $[  ] or [  ]%
+Always investigate:  revenue, gross margin %, headcount cost, cash, any sign flip,
+                     any account moving to or from zero
+```
+
+State the threshold before looking at the result. Never widen one to convert a FAIL into a PASS.
+
+---
+
+## Close
+
+Runs live in `close-runs/<period>/`. `LEDGER.md` is the authoritative state.
+
+**On resuming: read the ledger before doing anything.** Trust it over recollection. Verify the last
+`done` task's evidence exists and its tie-out passed. Resume at the first task that is not `done` or
+`staged`. **Never re-run a `done` task** — re-running is not idempotent in finance.
+
+Close calendar: [day 1 = ..., day 3 = ..., target close = day N]
+
+---
+
+## Metric definitions
+
+The canonical list lives at [Notion link / `docs/definitions.md`]. **Do not compute a metric a
+different way than it is defined there.** A definition change requires a `pipeline-change-control`
+record and a restatement of history.
+
+Stage for benchmark framing: **[seed / Series A / Series B / growth]**. Always frame benchmarks
+against this stage — a mid-market band on an early-stage company misleads even when the numbers are
+right.
+
+---
+
+## Token discipline
+
+Never read a large extract into context. Aggregate in the warehouse (`GROUP BY`), or reduce it with
+a script that prints distilled JSON. See `token-economics` for the tier hierarchy; run
+`/token-audit` to measure rather than guess.
+
+`/clear` between close phases — the ledger carries the state, which is what makes context disposable.
+
+---
+
+## Review gate
+
+Run `finance-quorum` before anything is reported, staged for posting, sent, or published. If model
+policy prevents up-tiering for review, the substitute is the quorum's Tier 3 structured review —
+**not** skipping the gate.
+
+---
+
+## Never
+
+- Post, send, submit, transmit, or deploy — stage it
+- Report a number without a tie-out block
+- Widen a threshold to make a variance pass
+- Clear a data-quality BLOCK by re-running until it goes green
+- Write to a human-owned zone
+- Put anything from the deny list into a file, commit, or artifact
+- Present an open-period extract as final

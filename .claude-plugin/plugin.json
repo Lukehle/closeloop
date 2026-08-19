@@ -1,0 +1,26 @@
+{
+  "name": "closeloop",
+  "version": "0.1.0",
+  "description": "Corporate finance automation skills for Claude Code: month-end close, reconciliation, flux analysis, three-statement integrity, SaaS metrics, warehouse SQL, live financial artifacts, and token economics. Built to run on a managed Enterprise seat.",
+  "author": {
+    "name": "Luke Kehle",
+    "url": "https://github.com/Lukehle"
+  },
+  "homepage": "https://github.com/Lukehle/closeloop",
+  "repository": "https://github.com/Lukehle/closeloop",
+  "license": "MIT",
+  "keywords": [
+    "finance",
+    "fpa",
+    "accounting",
+    "month-end-close",
+    "reconciliation",
+    "saas-metrics",
+    "bigquery",
+    "snowflake",
+    "google-sheets",
+    "financial-reporting",
+    "token-optimization",
+    "enterprise"
+  ]
+}
