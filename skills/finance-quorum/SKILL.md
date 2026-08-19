@@ -164,6 +164,23 @@ vague "review this" into four specific searches.
 
 ---
 
+## Going deeper
+
+This skill is the finance-facing instance of a general pattern. The full mechanics — lens design,
+the adversarial verify phase and how to read its survival rate, judge panels and dissent rulings,
+degradation tiers, plus a tested library for dedup/tallying/ruling/requorum diffing — live in the
+companion pack:
+
+> **[claude-quorum](https://github.com/Lukehle/claude-quorum)** — 10 skills, runnable workflows,
+> `tools/quorum-lib.mjs`
+> `/plugin marketplace add Lukehle/claude-quorum`
+
+Its `CALIBRATION.md` records what the design is actually based on: a retrospective over ~21
+production runs, in which the separate adversarial Verify phase was the measured differentiator
+(survival uniform at ~86%) and dissent-honoring convergence was the only family-invariant.
+
+---
+
 ## Related skills
 
 - `tie-out` — the first lens's ammunition

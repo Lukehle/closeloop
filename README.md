@@ -165,14 +165,14 @@ models and would need their own skills. No buy-side deal tooling (DCF, comps, CI
 well covered elsewhere. No tax or audit opinions: these skills produce evidence and analysis, not
 professional advice.
 
-## Companion pack
+## Companion packs
 
-[**chartroom**](https://github.com/Lukehle/chartroom) covers the visualization and artifact side —
-hand-built SVG charting under a strict CSP, bridge/cohort/variance/uncertainty/flow chart design,
-financial table layout, live connector data, theming, accessibility, and UI/UX craft, plus a tested
-dependency-free chart kit. `fin-artifact` here points to it for the build detail.
+| | |
+|---|---|
+| [**chartroom**](https://github.com/Lukehle/chartroom) | Artifacts, apps, UI/UX, and charts — SVG charting under a strict CSP, bridges, cohorts, variance, financial tables, live connector data, plus a tested chart kit. `fin-artifact` points there for build detail |
+| [**claude-quorum**](https://github.com/Lukehle/claude-quorum) | The general form of `finance-quorum` — lens design, adversarial verification, judge panels, degradation tiers, and a tested library for the deterministic steps |
 
-Use them together or separately; neither depends on the other.
+Use them together or separately; none depends on the others.
 
 ## Verification
 
