@@ -199,6 +199,22 @@ conflating them misstates the data's age.
 
 ---
 
+## Going deeper
+
+This skill is the finance-facing summary. The full craft — hand-built SVG charting under a strict
+CSP, bridge/cohort/variance/uncertainty/flow chart design, financial table layout, theming,
+accessibility, interaction patterns, and a tested dependency-free chart kit — lives in the companion
+pack:
+
+> **[chartroom](https://github.com/Lukehle/chartroom)** — 27 skills plus `chartkit.js`
+> `/plugin marketplace add Lukehle/chartroom`
+
+Reach for it when you are actually building the page rather than deciding what belongs on it. Of
+particular use here: `bridge-charts` (the ARR and cash bridges this skill calls for, with a footing
+check in code), `financial-tables`, `chart-annotation`, and `artifact-testing`.
+
+---
+
 ## Related skills
 
 - `artifact-capabilities` — required reading before any connector call

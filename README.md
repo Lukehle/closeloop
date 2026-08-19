@@ -165,6 +165,15 @@ models and would need their own skills. No buy-side deal tooling (DCF, comps, CI
 well covered elsewhere. No tax or audit opinions: these skills produce evidence and analysis, not
 professional advice.
 
+## Companion pack
+
+[**chartroom**](https://github.com/Lukehle/chartroom) covers the visualization and artifact side —
+hand-built SVG charting under a strict CSP, bridge/cohort/variance/uncertainty/flow chart design,
+financial table layout, live connector data, theming, accessibility, and UI/UX craft, plus a tested
+dependency-free chart kit. `fin-artifact` here points to it for the build detail.
+
+Use them together or separately; neither depends on the other.
+
 ## Verification
 
 The two scripts in this pack are tested rather than asserted:
