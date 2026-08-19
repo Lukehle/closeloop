@@ -141,6 +141,27 @@ VERDICT  Do not use for decisions until the 3 Critical and the sign-convention
 
 ---
 
+## Checkpointing a large audit
+
+The mechanical scan already checkpoints itself — it writes `audit.json`, which survives anything.
+**Run it to a file, not to the conversation**, and read findings from the file. That single habit
+removes most of the compaction risk in this skill.
+
+The reasoned pass is the fragile part. Per `context-durability`:
+
+- Work the structure / logic / financial-correctness sections **one at a time**, writing findings to
+  a file as you close each one, including "nothing found in this section."
+- Record each **stress test result as you run it**. A stress test you believe you ran is not a
+  stress test.
+- On a multi-sheet workbook, keep the sheet list with its completion state. "I reviewed the opex
+  sheet" is exactly the bookkeeping a summary drops.
+
+If you resume an audit and cannot tell which reasoned sections completed, redo them. Unlike a
+reconciliation, re-reviewing is idempotent and cheap — the only cost is time, and the alternative is
+a verdict that claims coverage it does not have.
+
+---
+
 ## Degraded mode
 
 **No Python or no openpyxl:** work through the taxonomy manually in this order, which front-loads the

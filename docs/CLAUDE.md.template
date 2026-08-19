@@ -108,6 +108,20 @@ a script that prints distilled JSON. See `token-economics` for the tier hierarch
 
 `/clear` between close phases — the ledger carries the state, which is what makes context disposable.
 
+## Long runs and compaction
+
+Before any long reconciliation, multi-account flux, or large model audit: **write the scope,
+thresholds, and exclusions to disk first**, then checkpoint every ~10 items. See
+`context-durability`.
+
+If you suspect the conversation was summarized — you cannot recall a figure you clearly established,
+or you are unsure whether a step completed — **stop and run the recovery protocol** before
+continuing. Re-deriving a number does not fail loudly; it silently produces a different number, and
+the second answer looks exactly as confident as the first.
+
+If there is no checkpoint and no ledger, the in-flight work is lost. Restart the task with an
+explicit scope declaration. Do not reconstruct from a summary and present the result as continuous.
+
 ---
 
 ## Review gate

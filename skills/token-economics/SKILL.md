@@ -106,6 +106,12 @@ available, and it is mostly about *not* doing things:
 half-built state; a deliberate one between phases loses nothing, because the ledger holds the state.
 This is another reason `close-orchestrator` is ledger-driven.
 
+**Clearing is only safe once state is externalized.** These two skills pull in opposite directions
+and both are right: this one says keep context small, `context-durability` says do not lose state.
+They reconcile in one move — checkpoint to disk, then clear freely. Without a checkpoint you end up
+hoarding context to avoid losing it, which is slower, more expensive, *and* still loses everything
+the moment compaction fires anyway. Read `context-durability` before any long run.
+
 ---
 
 ## MCP and tool bloat

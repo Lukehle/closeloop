@@ -29,7 +29,7 @@ control total → GL-agreement chain with an explicit variance against a materia
 Nothing leaves this pack unproven.
 
 **3. Skills are lazy-loaded, so breadth is cheap.** A skill body only enters context when invoked;
-the resident cost is its one-line index description. That is why this is 19 sharp skills rather than
+the resident cost is its one-line index description. That is why this is 20 sharp skills rather than
 5 fat ones — and why [`token-economics`](skills/token-economics/SKILL.md) treats a well-scoped skill
 as a *saving*, not an overhead.
 
@@ -62,16 +62,17 @@ skills you have to remember to invoke.
 
 ---
 
-## The 19 skills
+## The 20 skills
 
 ### Layer 0 — Spine
 
-Every other skill defers to these two. They hold the invariants so the domain skills stay short.
+Every other skill defers to these three. They hold the invariants so the domain skills stay short.
 
 | Skill | What it enforces |
 |---|---|
 | [`finance-guardrails`](skills/finance-guardrails/SKILL.md) | The approval rail (automate up to the post/send/submit button — a human clicks it), single-writer-per-zone, as-of pinning, materiality thresholds, no PII or credentials in artifacts, immutable run log |
 | [`tie-out`](skills/tie-out/SKILL.md) | Verification before completion, for numbers. Source → transformation → control total → GL agreement, with variance vs threshold. Exit codes are checked, not piped away |
+| [`context-durability`](skills/context-durability/SKILL.md) | Surviving context compaction: checkpoint scope and thresholds to disk before they can be lost, detect that a summarization already happened, and recover without silently re-deriving a different number |
 
 ### Layer 1 — Close & reconciliation
 

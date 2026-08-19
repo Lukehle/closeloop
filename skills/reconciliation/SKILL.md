@@ -182,6 +182,26 @@ Unapplied cash $88,140 - out of scope, owned by the cash rec
 
 ---
 
+## Checkpointing a long rec
+
+A rec over thousands of items will outlive its context. Per `context-durability`, write a checkpoint
+**before** starting the match cascade and every ~10 proposals through rules 4-7.
+
+The three things that must be on disk, because a summary will drop them:
+
+1. **The tolerance and the exclusions**, written down before any matching ran
+2. **Which match rules have been applied**, and the counts each produced
+3. **The residual set as a file** (`runs/unmatched.csv`), not as a number in the conversation
+
+A half-completed match cascade cannot be reconstructed from a summary. If you resume without a
+checkpoint, the honest move is to restart the cascade from rule 1 — re-running rules against a
+recorded artifact is cheap; guessing which proposals you already accepted is not.
+
+**Never re-accept a proposal you may have already accepted.** Duplicate clearing is silent and it
+foots.
+
+---
+
 ## Degraded mode
 
 With no shell or warehouse access, the matching cascade is applied manually in a spreadsheet and the

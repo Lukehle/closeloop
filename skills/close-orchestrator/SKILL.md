@@ -177,6 +177,8 @@ with no such section is asserting perfection, and that assertion is almost never
 ## Related skills
 
 - `finance-guardrails` — the rails this skill operationalizes
+- `context-durability` — the general form of this skill's ledger pattern, for long runs inside a
+  single task
 - `tie-out` — the PASS/FAIL evidence every phase-2 task must produce
 - `reconciliation` — the mechanics of the individual recs
 - `flux-analysis` — phase 4

@@ -12,7 +12,7 @@
     {
       "name": "closeloop",
       "source": "./",
-      "description": "19 skills for finance automation on a managed Enterprise seat: spine invariants (approval rails, tie-out), close and reconciliation, three-statement and SaaS reporting, NetSuite/BigQuery/Snowflake/Sheets pipelines, live financial artifacts, and measured token economics.",
+      "description": "20 skills for finance automation on a managed Enterprise seat: spine invariants (approval rails, tie-out, context durability), close and reconciliation, three-statement and SaaS reporting, NetSuite/BigQuery/Snowflake/Sheets pipelines, live financial artifacts, and measured token economics.",
       "version": "0.1.0",
       "category": "finance"
     }

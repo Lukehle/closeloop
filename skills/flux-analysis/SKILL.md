@@ -163,6 +163,25 @@ themselves.
 
 ---
 
+## Checkpointing a multi-account flux
+
+A flux across 40 accounts is a loop, and loops outlive context. Per `context-durability`:
+
+- **Write the full account work list before starting**, with each account's variance and whether it
+  cleared the gate. Not just the ones you are investigating — the ones you excluded and why, because
+  "below the gate" is a decision someone may question.
+- **Write the gates at the top**, marked stated-before-results. A materiality gate reconstructed
+  after seeing the variances is not a gate.
+- **Record commentary per account as you finish it**, not at the end. Commentary held in reasoning
+  across 40 accounts is the single most compaction-fragile artifact in this pack.
+- **Checkpoint every ~10 accounts** with the position and the accounts completed.
+
+The specific hazard here: after a compaction you will feel oriented enough to keep writing
+commentary, and the drivers you cite will drift toward the plausible rather than the evidenced.
+Re-read the GL detail for any account whose commentary you cannot trace to a written finding.
+
+---
+
 ## Degraded mode
 
 Without query access, request the GL detail extract for the accounts over the materiality gate and
