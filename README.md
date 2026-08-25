@@ -163,7 +163,12 @@ See [hooks/README.md](hooks/README.md) to enable them deliberately.
 No CRM skills, and no ERP beyond NetSuite — Sage Intacct, Dynamics, and SAP have different record
 models and would need their own skills. No buy-side deal tooling (DCF, comps, CIM); that ground is
 well covered elsewhere. No tax or audit opinions: these skills produce evidence and analysis, not
-professional advice.
+professional advice. The accounting frame is **US GAAP** (ASC references throughout); IFRS
+differences are flagged where they bite but not covered. Multi-entity work is addressed as close
+mechanics — intercompany traps in `reconciliation`, FX translation and CTA in `three-statement` —
+not as a consolidation engine. And the pack ships **no ingestion infrastructure**: no pipelines, no
+CDC, no live transaction capture — extracts are pulled as-of and pinned on purpose, because a figure
+that silently updates under review is the failure mode the pack exists to prevent.
 
 ## Companion packs
 
@@ -176,7 +181,9 @@ Use them together or separately; none depends on the others.
 
 ## Verification
 
-The two scripts in this pack are tested rather than asserted:
+The pack's Python scripts are tested rather than asserted. They run on the standard library alone —
+no virtualenv, no `pip install` (`openpyxl` is optional for model-audit's live-workbook mode; absent
+it, the skill degrades to formula-text review):
 
 ```bash
 python skills/model-audit/scripts/selftest.py     # 9 assertions, incl. a regression guard

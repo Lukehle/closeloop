@@ -130,6 +130,43 @@ Beyond the arithmetic, check the construction:
 
 ---
 
+## Multi-entity and FX translation (ASC 830)
+
+The moment a foreign subsidiary appears, the single-entity checks above are necessary but no
+longer sufficient. The procedure, in order:
+
+1. **Determine each entity's functional currency first** — the currency of the primary economic
+   environment (where it prices, pays, and holds cash), not the currency it happens to report in.
+   This decision picks the method for everything below, and changing it later is a restatement,
+   not a toggle.
+2. **Pick the method the determination dictates:**
+   - Functional currency = local currency → **current-rate translation**: assets and liabilities
+     at the period-end rate, income statement at the average rate (or transaction-date rates),
+     equity at historical rates. The plug lands in **CTA, inside OCI/equity — never in net income**.
+   - Functional currency = the parent's currency → **remeasurement**: monetary items at the
+     period-end rate, non-monetary items at historical rates, and the gain/loss runs **through the
+     income statement**. Translating a subsidiary the wrong way silently moves FX out of (or into)
+     earnings.
+3. **Roll the CTA forward like any other equity account**: opening CTA + current-period translation
+   adjustment = closing CTA, and the movement must reconcile to the rate changes applied — a CTA
+   that moved with no rate story is a plug hiding an error. This is the account the Output block's
+   OCI line exists for; "single-entity, no foreign subsidiaries this period" is the honest note
+   when it is empty, not a default to leave unexamined.
+4. **Eliminate intercompany before consolidating, in one currency.** Intercompany balances must
+   net to zero *after* both sides are translated — a payable booked at one month's rate against a
+   receivable at another's leaves a phantom difference that belongs in CTA (or FX gain/loss under
+   remeasurement), not in a consolidated asset. The matching mechanics live in `reconciliation`'s
+   intercompany rules; this check is where they meet the statements.
+5. **Rates are inputs, pinned as-of** — loaded at Phase 0 with the trial balances, with the source
+   and date stated, per the as-of principle. A rate fetched live mid-close is unauditable; a rate
+   loaded with the extract ties out forever.
+
+Scope note: this is the close-mechanics layer — enough to translate, roll CTA, and prove the
+eliminations. Full consolidation systems (ownership ladders, minority interest, hyperinflationary
+economies under ASC 830-10) are out of this pack's scope, per the README boundary.
+
+---
+
 ## Output
 
 ```
