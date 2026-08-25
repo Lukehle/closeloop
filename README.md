@@ -193,3 +193,7 @@ silently hid the most common range defect in real models.
 ## License
 
 MIT — see [LICENSE](LICENSE).
+
+---
+
+Part of a family: [toolroom](https://github.com/Lukehle/toolroom) (the harness layer and umbrella - guard hooks, model routing, loops, skill routing, Enterprise runbook) - [closeloop](https://github.com/Lukehle/closeloop) (finance) - [chartroom](https://github.com/Lukehle/chartroom) (charts/artifacts) - [vaultkit](https://github.com/Lukehle/vaultkit) (vault memory + Notion) - [claude-quorum](https://github.com/Lukehle/claude-quorum) (verification).
