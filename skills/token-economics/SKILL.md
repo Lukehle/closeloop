@@ -1,6 +1,6 @@
 ---
 name: token-economics
-description: Cost and context discipline for running Claude Code on a managed Enterprise or Team seat - model routing under policy restrictions, cache-TTL discipline, context hygiene, subagent isolation, MCP tool-bloat trimming, and the data-tier hierarchy that keeps large financial extracts out of context entirely. Use when work is slow, expensive, hitting limits, or about to process a large dataset. Trigger on "token", "context", "expensive", "hitting limits", "usage limit", "slow", "compact", "too many tokens", "cost", "optimize the session", "large extract".
+description: Cost and context discipline for running Claude Code on a managed Enterprise or Team seat - model routing under policy restrictions, cache-TTL discipline, context hygiene, subagent isolation, MCP tool-bloat trimming, and the data-tier hierarchy that keeps large financial extracts out of context entirely. Use when work is slow, expensive, hitting limits, or about to process a large dataset. Trigger on "token", "context", "expensive", "hitting limits", "usage limit", "slow session", "too many tokens", "cost", "optimize the session", "large extract".
 ---
 
 # Token economics

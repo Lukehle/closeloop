@@ -1,6 +1,6 @@
 ---
 name: flux-analysis
-description: Variance and flux analysis with driver decomposition - month-over-month, quarter-over-quarter, year-over-year, and actual-vs-budget/forecast - producing commentary that cites the specific transactions and drivers behind each swing rather than restating the arithmetic. Use for close review, board prep, budget-vs-actual reviews, and any "why did this move" question. Trigger on "flux", "variance", "why did X change", "budget vs actual", "BvA", "explain the movement", "MoM", "QoQ", "bridge", "walk me from X to Y".
+description: Variance and flux analysis with driver decomposition - month-over-month, quarter-over-quarter, year-over-year, and actual-vs-budget/forecast - producing commentary that cites the specific transactions and drivers behind each swing rather than restating the arithmetic. Use for close review, board prep, budget-vs-actual reviews, and any "why did this move" question. Trigger on "flux", "variance", "why did X change", "budget vs actual", "BvA", "explain the movement", "MoM", "QoQ", "bridge the variance", "walk me from X to Y".
 ---
 
 # Flux analysis

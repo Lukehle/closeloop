@@ -1,6 +1,6 @@
 ---
 name: context-durability
-description: Survive context compaction during long finance work - checkpoint state to disk before it can be lost, detect that a compaction has already happened, and recover without silently re-deriving a different number. Use before any long-running reconciliation, multi-account flux, large model audit, or multi-day close, and immediately whenever you suspect the conversation has been summarized. Trigger on "compact", "autocompaction", "context limit", "long session", "where was I", "did I already check", "resume", "continue where we left off", or any task that will iterate over many accounts, files, or periods.
+description: Survive context compaction during long finance work - checkpoint state to disk before it can be lost, detect that a compaction has already happened, and recover without silently re-deriving a different number. Use before any long-running reconciliation, multi-account flux, large model audit, or multi-day close, and immediately whenever you suspect the conversation has been summarized. Trigger on "autocompaction", "context limit", "did I already check", "where was I in the rec", "resume the close", or any task that will iterate over many accounts, files, or periods.
 ---
 
 # Context durability

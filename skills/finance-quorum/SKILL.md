@@ -1,6 +1,6 @@
 ---
 name: finance-quorum
-description: Adversarial multi-perspective review of a number, model, automation, or deliverable before a human relies on it - independent reviewers each trying to break it from a different angle, then a ruling. Degrades across three tiers so it works on a fully-featured harness or a locked-down Enterprise seat. Use as the review gate before anything is reported, staged for posting, sent, or published. Trigger on "review this", "check my work", "before I send this", "second opinion", "is this defensible", "stress test", "quorum", "what could be wrong here".
+description: Adversarial multi-perspective review of a number, model, automation, or deliverable before a human relies on it - independent reviewers each trying to break it from a different angle, then a ruling. Degrades across three tiers so it works on a fully-featured harness or a locked-down Enterprise seat. Use as the review gate before anything is reported, staged for posting, sent, or published. Trigger on "review this", "check my work", "before I send this", "second opinion on the numbers", "defensible to audit", "stress test the model", "what could be wrong here".
 ---
 
 # Finance quorum

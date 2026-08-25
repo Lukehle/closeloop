@@ -1,6 +1,6 @@
 ---
 name: fin-artifact
-description: Build financial dashboards and reporting artifacts backed by BigQuery, Google Sheets, or a warehouse extract - in two tiers, an as-of snapshot by default and a live connector mode when the organization exposes one. Carries the finance visualization conventions - ARR and cash bridges, cohort heatmaps, actual-vs-budget variance bands, sign conventions, benchmark bands, suppression rules. Use when building any chart, dashboard, board visual, or data-backed page for financial data. Trigger on "dashboard", "build a chart", "visualize", "live artifact", "board visual", "waterfall", "bridge chart", "cohort chart", "financial dashboard", "make it live".
+description: Build financial dashboards and reporting artifacts backed by BigQuery, Google Sheets, or a warehouse extract - in two tiers, an as-of snapshot by default and a live connector mode when the organization exposes one. Carries the finance visualization conventions - ARR and cash bridges, cohort heatmaps, actual-vs-budget variance bands, sign conventions, benchmark bands, suppression rules. Use when building any chart, dashboard, board visual, or data-backed page for financial data. Trigger on "dashboard", "build a chart", "visualize", "live board pack", "board visual", "EBITDA waterfall", "bridge chart", "cohort chart", "financial dashboard", "wire it to the warehouse".
 ---
 
 # Financial artifacts
