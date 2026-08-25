@@ -1,6 +1,6 @@
 {
   "name": "closeloop",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Corporate finance automation skills for Claude Code: month-end close, reconciliation, flux analysis, three-statement integrity, SaaS metrics, warehouse SQL, live financial artifacts, and token economics. Built to run on a managed Enterprise seat.",
   "author": {
     "name": "Luke Kehle",

@@ -42,7 +42,7 @@ def load_config(path: str) -> dict:
         try:
             import yaml
         except ImportError:
-            raise SystemExit(
+            raise RuntimeError(
                 "ERROR: config is YAML but PyYAML is unavailable. Convert the config "
                 "to JSON (same keys) or install PyYAML.")
         return yaml.safe_load(text)
@@ -345,49 +345,48 @@ def main() -> int:
 
     try:
         cfg = load_config(args.config)
+        if not isinstance(cfg, dict):
+            raise ValueError("config root must be an object/mapping")
         header, rows = read_csv(args.data)
-    except SystemExit:
-        raise
-    except Exception as exc:  # noqa: BLE001 - surface any load failure verbatim
+
+        dims: dict[str, str] = {}
+        for pair in args.dim:
+            if "=" not in pair:
+                raise ValueError(f"--dim expects COL=path, got {pair!r}")
+            col, path = pair.split("=", 1)
+            dims[col] = path
+
+        gate = Gate()
+
+        # Check 1 gates the rest: every later check is meaningless on an empty or
+        # wrong-sized extract, so stop here rather than emit misleading passes.
+        if check_row_count(gate, rows, cfg):
+            check_control_total(gate, rows, cfg)
+            check_duplicates(gate, rows, cfg)
+            check_referential(gate, rows, dims, cfg)
+            check_period(gate, rows, cfg)
+            check_not_null(gate, rows, cfg)
+            check_drift(gate, rows, header, args.prior, cfg)
+
+        report = {
+            "data": args.data,
+            "rows": len(rows),
+            "verdict": gate.verdict,
+            "checks": gate.results,
+        }
+        print(json.dumps(report, indent=2))
+
+        counts = Counter(r["verdict"] for r in gate.results)
+        print(f"\n# {gate.verdict}: {counts[PASS]} pass, {counts[WARN]} warn, "
+              f"{counts[BLOCK]} block", file=sys.stderr)
+        if gate.verdict == BLOCK:
+            print("# Pipeline must stop. A BLOCK is cleared by a human who understands "
+                  "the cause and records the override - not by re-running.", file=sys.stderr)
+
+        return {PASS: 0, WARN: 1, BLOCK: 2}[gate.verdict]
+    except Exception as exc:  # noqa: BLE001 - fail closed on invalid gate/config
         print(f"ERROR: gate could not run: {exc}", file=sys.stderr)
         return 3
-
-    dims: dict[str, str] = {}
-    for pair in args.dim:
-        if "=" not in pair:
-            print(f"ERROR: --dim expects COL=path, got {pair!r}", file=sys.stderr)
-            return 3
-        col, path = pair.split("=", 1)
-        dims[col] = path
-
-    gate = Gate()
-
-    # Check 1 gates the rest: every later check is meaningless on an empty or
-    # wrong-sized extract, so stop here rather than emit misleading passes.
-    if check_row_count(gate, rows, cfg):
-        check_control_total(gate, rows, cfg)
-        check_duplicates(gate, rows, cfg)
-        check_referential(gate, rows, dims, cfg)
-        check_period(gate, rows, cfg)
-        check_not_null(gate, rows, cfg)
-        check_drift(gate, rows, header, args.prior, cfg)
-
-    report = {
-        "data": args.data,
-        "rows": len(rows),
-        "verdict": gate.verdict,
-        "checks": gate.results,
-    }
-    print(json.dumps(report, indent=2))
-
-    counts = Counter(r["verdict"] for r in gate.results)
-    print(f"\n# {gate.verdict}: {counts[PASS]} pass, {counts[WARN]} warn, "
-          f"{counts[BLOCK]} block", file=sys.stderr)
-    if gate.verdict == BLOCK:
-        print("# Pipeline must stop. A BLOCK is cleared by a human who understands "
-              "the cause and records the override - not by re-running.", file=sys.stderr)
-
-    return {PASS: 0, WARN: 1, BLOCK: 2}[gate.verdict]
 
 
 if __name__ == "__main__":

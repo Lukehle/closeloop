@@ -12,7 +12,7 @@ Two PreToolUse guards that enforce `finance-guardrails` mechanically instead of 
 
 | Hook | Event | Blocks |
 |---|---|---|
-| `finance-pii-guard.cjs` | `PreToolUse` on `Write`, `Edit` | Writes containing bank/card numbers, tax identifiers, private keys, cloud credentials, or connection strings with embedded passwords |
+| `finance-pii-guard.cjs` | `PreToolUse` on `Write`, `Edit`, `MultiEdit` | Writes containing bank/card numbers, tax identifiers, private keys, cloud credentials, or connection strings with embedded passwords, including nested multi-edits |
 | `irreversible-action-guard.cjs` | `PreToolUse` on `Bash`, `PowerShell` | Commands that post, submit, transmit, send, deploy, push, or destructively drop — forcing them to be staged for a human |
 
 ---
@@ -27,7 +27,7 @@ the paths to wherever you cloned the repo.
   "hooks": {
     "PreToolUse": [
       {
-        "matcher": "Write|Edit",
+        "matcher": "Write|Edit|MultiEdit",
         "hooks": [
           {
             "type": "command",
@@ -66,7 +66,7 @@ echo '{"tool_input":{"command":"bq query \"DROP TABLE finance.staging\""}}' \
 echo '{"tool_input":{"command":"bq query --dry_run \"SELECT 1\""}}' \
   | node hooks/irreversible-action-guard.cjs; echo "exit=$?"
 
-# should ALLOW - the deliberate human-approval marker
+# should BLOCK - command text cannot self-assert human approval
 echo '{"tool_input":{"command":"git push origin main  # closeloop:approved"}}' \
   | node hooks/irreversible-action-guard.cjs; echo "exit=$?"
 
@@ -79,7 +79,7 @@ echo '{"tool_input":{"file_path":"/x/r.md","content":"AR balance 12,441,520.11 o
   | node hooks/finance-pii-guard.cjs; echo "exit=$?"
 ```
 
-Expected: `2`, `0`, `0`, `2`, `0`.
+Expected: `2`, `0`, `2`, `2`, `0`.
 
 ---
 
@@ -95,10 +95,9 @@ invoice ids, transaction ids. Without a check-digit test, every one of them woul
 the guard would be unusable. It also exempts this pack's own `SKILL.md` / `README.md` files and any
 path under a `fixtures/` directory, since those legitimately describe the patterns they match.
 
-**The approved-execution escape hatch.** Appending `# closeloop:approved` to a command lets a
-human-authorised execution through `irreversible-action-guard`. It must be typed deliberately;
-nothing infers it. This exists so the rail can be *satisfied* — a human decided, and the record shows
-they decided — rather than routed around by disabling the hook.
+**Approval is out of band.** The guarded command cannot carry its own proof of approval. After the
+agent stages the exact action and evidence, the human executes the approved action outside the
+guarded agent tool path. This prevents agent-written command text from impersonating an approver.
 
 **Do not defeat the PII guard by splitting a value across lines.** If it fires on legitimate
 content, widen the rule in the file. A guard you work around is worse than no guard, because it

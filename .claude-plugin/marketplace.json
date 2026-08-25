@@ -6,14 +6,14 @@
   },
   "metadata": {
     "description": "Corporate finance automation skills for Claude Code — close, reconciliation, FP&A, statements, SaaS metrics, warehouse SQL, financial artifacts, and token economics.",
-    "version": "0.1.0"
+    "version": "0.1.1"
   },
   "plugins": [
     {
       "name": "closeloop",
       "source": "./",
       "description": "20 skills for finance automation on a managed Enterprise seat: spine invariants (approval rails, tie-out, context durability), close and reconciliation, three-statement and SaaS reporting, NetSuite/BigQuery/Snowflake/Sheets pipelines, live financial artifacts, and measured token economics.",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "category": "finance"
     }
   ]

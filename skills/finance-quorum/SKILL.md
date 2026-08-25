@@ -171,7 +171,7 @@ the adversarial verify phase and how to read its survival rate, judge panels and
 degradation tiers, plus a tested library for dedup/tallying/ruling/requorum diffing — live in the
 companion pack:
 
-> **[claude-quorum](https://github.com/Lukehle/claude-quorum)** — 10 skills, runnable workflows,
+> **[claude-quorum](https://github.com/Lukehle/claude-quorum)** — 11 skills, runnable workflows,
 > `tools/quorum-lib.mjs`
 > `/plugin marketplace add Lukehle/claude-quorum`
 

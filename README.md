@@ -54,7 +54,9 @@ cd closeloop
 pwsh ./install.ps1    # Windows PowerShell
 ```
 
-The installer copies `skills/*` into `~/.claude/skills/`. Nothing is overwritten without a prompt.
+The installer copies `skills/*` into `~/.claude/skills/` and `commands/*.md` into
+`~/.claude/commands/`. Nothing is overwritten without a prompt. Override either destination with
+`CLAUDE_SKILLS_DIR` or `CLAUDE_COMMANDS_DIR`.
 
 **Optional project rails:** copy [`docs/CLAUDE.md.template`](docs/CLAUDE.md.template) into your
 finance working folder as `CLAUDE.md` to make the guardrails standing instructions rather than

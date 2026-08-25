@@ -8,8 +8,9 @@ description: Build financial dashboards and reporting artifacts backed by BigQue
 Two things distinguish a financial artifact from a generic dashboard: **the numbers must be
 provable**, and **the as-of must be explicit**. Everything below follows from those.
 
-Load `dataviz` and `artifact-design` for general visual craft — this skill covers only what is
-specific to financial data. It does not replace them.
+For general visual craft, use Chartroom's concrete `artifact-architecture`, `visual-hierarchy`,
+`chart-selection`, and `artifact-testing` skills when that companion pack is installed. If it is
+not installed, follow the conventions and degraded mode below; this skill remains self-contained.
 
 ---
 
@@ -52,8 +53,9 @@ Two hard constraints follow, and both are commonly discovered too late:
    posture — and it is also a distribution constraint. A board pack that only opens for people with
    warehouse credentials is not a board pack.
 
-Before writing a single connector call, **load the `artifact-capabilities` skill** and read its type
-definitions. Then:
+Before writing a connector call, load the host's `artifact-capabilities` skill **when available**
+and read its type definitions. If that platform skill is unavailable, do not guess a connector
+shape: ship the Tier 1 snapshot and state that live mode was unavailable. Then:
 
 - **Observe one real request/response pair per tool before publishing.** Never guess argument names
   or result encoding. If you cannot safely observe one, say so at publish time rather than shipping a
@@ -217,8 +219,9 @@ check in code), `financial-tables`, `chart-annotation`, and `artifact-testing`.
 
 ## Related skills
 
-- `artifact-capabilities` — required reading before any connector call
-- `dataviz`, `artifact-design` — general visual craft this skill sits on top of
+- Chartroom `artifact-architecture`, `visual-hierarchy`, `chart-selection`, and
+  `artifact-testing` — optional companion craft; use the snapshot fallback when absent
+- Host `artifact-capabilities` — conditional connector reference; never required for Tier 1
 - `tie-out` — the proof behind every figure on the page
 - `saas-metrics` — definitions and benchmark bands
 - `flux-analysis` — the bridges this skill renders

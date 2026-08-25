@@ -34,10 +34,6 @@ process.stdin.on('end', () => {
   const cmd = String(input.command || '').trim();
   if (!cmd) process.exit(0);
 
-  // An explicit acknowledgement lets a human-authorised execution through.
-  // It must be typed deliberately; nothing infers it.
-  if (/#\s*closeloop:approved\b/i.test(cmd)) process.exit(0);
-
   const RULES = [
     {
       name: 'journal entry / period posting',
@@ -97,11 +93,9 @@ process.stdin.on('end', () => {
       `  3. The blast radius - what changes, where, for which period, and\n` +
       `     whether reversing needs a correcting entry rather than an undo\n` +
       `  4. The rollback steps, or an explicit statement that there are none\n\n` +
-      `Then write "STAGED - human runs this" and hand over.\n\n` +
-      `If a human has authorised THIS execution, they can append\n` +
-      `  # closeloop:approved\n` +
-      `to the command. Standing authorisation for a class of action does not\n` +
-      `authorise this instance - the approver still needs the evidence.`;
+      `Then write "STAGED - human runs this" and hand over. The approved action\n` +
+      `must be executed by the human outside this guarded agent tool path;\n` +
+      `command text is never treated as proof of approval.`;
 
     process.stderr.write(JSON.stringify({
       decision: 'block',

@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 /**
- * closeloop - finance PII / credential write guard  (PreToolUse: Write, Edit)
+ * closeloop - finance PII / credential write guard
+ * (PreToolUse: Write, Edit, MultiEdit)
  *
  * Blocks writes that would put bank account numbers, tax identifiers, card
  * numbers, or credentials into a file. Enforces finance-guardrails Rail 5
@@ -32,9 +33,23 @@ process.stdin.on('end', () => {
   }
 
   const input = payload.tool_input || {};
-  const text = [input.content, input.new_string, input.old_string]
-    .filter((v) => typeof v === 'string')
-    .join('\n');
+
+  // Mutation tools evolve and MultiEdit nests replacements in edits[]. Walk the
+  // complete input shape so a new or nested mutation field cannot bypass the
+  // guard. Path fields are metadata, not content, and are handled separately.
+  function collectStrings(value, key = '') {
+    if (typeof value === 'string') {
+      return /^(?:file_?path|path)$/i.test(key) ? [] : [value];
+    }
+    if (Array.isArray(value)) return value.flatMap((item) => collectStrings(item));
+    if (value && typeof value === 'object') {
+      return Object.entries(value).flatMap(([childKey, child]) =>
+        collectStrings(child, childKey));
+    }
+    return [];
+  }
+
+  const text = collectStrings(input).join('\n');
   const filePath = String(input.file_path || input.path || '');
 
   if (!text) process.exit(0);
